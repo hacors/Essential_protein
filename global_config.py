@@ -8,6 +8,7 @@ PATH_LIST = {
     'STRING': os.path.join(DATA_ROOT, 'STRING'),
     'UNIPROT': os.path.join(DATA_ROOT, 'UNIPROT'),
     'DEG_split': os.path.join(DATA_ROOT, 'DEG_split'),
+    'Fusion': os.path.join(DATA_ROOT, 'Fusion'),
     'driver': os.path.join(DATA_ROOT, 'Support', 'chromedriver')
 }
 DEG_BIO_CLASS = ['Bacteria', 'Archaea', 'Eukaryotes']
@@ -149,5 +150,14 @@ ID_MAP = {
     ['Synechococcus_elongatus', '1140'],
     'Vibrio cholerae N16961': ['Vibrio_cholerae', '243277']
 }
+
+
+def get_organs():
+    result = dict()
+    for key in ID_MAP.keys():
+        result[ID_MAP[key][0]] = ID_MAP[key][1]
+    return result
+
+
 if __name__ == '__main__':
     print(len(ID_MAP))

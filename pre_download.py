@@ -10,7 +10,6 @@ import os
 import random
 import shutil
 import time
-import urllib
 
 import requests
 from bs4 import BeautifulSoup
@@ -70,7 +69,7 @@ def download_string_files(path):
     for name_id in taxon_name_id_list:
         if not name_id[1] in taxon_id_set:
             taxon_id_set.add(name_id[1])
-            down_path = os.path.join(path, name_id[0]+' '+name_id[1])
+            down_path = os.path.join(path, name_id[0])
             download_string_file(down_path, name_id[1])
 
 
