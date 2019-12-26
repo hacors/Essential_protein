@@ -4,6 +4,7 @@
 从https://www.ncbi.nlm.nih.gov/ 查找不同标准的生物的ID对应关系，存储于单独的文件夹
 从https://string-db.org/ 下载所有相关生物的蛋白质相互作用信息，按照生物ID分类存储
 从https://www.uniprot.org/ 查找所有相关的蛋白质注释信息，按照生物ID分类存储
+需要重新写
 '''
 import gzip
 import os
@@ -96,7 +97,7 @@ def download_string_file(path, taxon_id):
 def download_uniport_files(string_path, uniport_path):
     make_dir(uniport_path)
     string_organ_list = os.listdir(string_path)
-    for string_organ in string_organ_list:
+    for string_organ in string_or  gan_list:
         gz_file_path = os.path.join(string_path, string_organ, global_config.STRING_FILES[1]+'.txt.gz')
         protein_id_list = list()
         with gzip.open(gz_file_path, 'r') as file:
