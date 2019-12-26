@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/root/anaconda3/envs/ess/bin/python",
+    "python.pythonPath": "/root/anaconda3/envs/ess-pytorch/bin/python",
     "python.terminal.activateEnvironment": false
 }

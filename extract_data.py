@@ -60,7 +60,7 @@ def write_to_deg_split(organs_ess_seqs, path):
                 file.write(temp)
 
 
-def get_ess_ids(string_seq_path, deg_seq_path):
+def get_ess_ids(string_seq_path, deg_seq_path):  # 确定哪些是关键蛋白质
     deg_seq_file = open(deg_seq_path)
     deg_seq = deg_seq_file.read().split('\n')
     string_seq_file = gzip.open(string_seq_path)
@@ -75,6 +75,32 @@ def get_ess_ids(string_seq_path, deg_seq_path):
             result.append(string_seq_processed[0])
     rate = len(result)/len(deg_seq)
     return result, rate
+
+
+def get_init_graph(string_info_path, string_act_path):
+    string_info_file = gzip.open(string_info_path)
+    string_act_file = gzip.open(string_act_path)
+    next(string_info_file)
+    next(string_act_file)
+    init_graph = nx.Graph()
+    for protein_info in string_info_file:
+        info_list = protein_info.decode('utf-8').strip().split('\t')
+        init_graph.add_node(info_list[0])
+        init_graph.nodes[info_list[0]]['name'] = info_list[1]
+        init_graph.nodes[info_list[0]]['size'] = info_list[2]
+    for protein_act in string_act_file:
+        act_list = protein_act.decode('utf-8').strip().split('\t')
+        init_graph.add_edge(act_list[0], act_list[1])
+        init_graph[act_list[0]][act_list[1]][act_list[2]] = act_list[6]
+    return init_graph
+
+
+def get_label_graph(graph, ess_ids):
+    for node in graph.nodes():
+        graph.nodes[node]['label'] = False
+    for ess_id in ess_ids:
+        graph.nodes[ess_id]['label'] = True
+    return graph
 
 
 def main():
@@ -94,8 +120,10 @@ def main():
         ess_ids, rate = get_ess_ids(os.path.join(
             String_path, organ, 'protein_sequences.txt.gz'), os.path.join(Deg_split_path, organ+'.txt'))
         if rate > 0.80:
-            init_graph = nx.MultiGraph()
-
+            init_graph = get_init_graph(os.path.join(
+                String_path, organ, 'protein_info.txt.gz'), os.path.join(String_path, organ, 'protein_actions.txt.gz'))
+            label_graph = get_label_graph(init_graph, ess_ids)
+            
         pass
 
 
