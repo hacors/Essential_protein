@@ -1,4 +1,7 @@
 {
     "python.pythonPath": "/root/anaconda3/envs/ess-pytorch/bin/python",
-    "python.terminal.activateEnvironment": false
+    "python.terminal.activateEnvironment": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=n"],
+    "python.linting.pylintEnabled": false,
 }

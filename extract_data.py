@@ -123,7 +123,7 @@ def main():
             init_graph = get_init_graph(os.path.join(
                 String_path, organ, 'protein_info.txt.gz'), os.path.join(String_path, organ, 'protein_actions.txt.gz'))
             label_graph = get_label_graph(init_graph, ess_ids)
-            
+            pass
         pass
 
 
